@@ -8,7 +8,7 @@ public class View extends JFrame  {
 	private Frame f;
 	public Player p;
 
-	public View(Player p) { //dasdasdasdadadadasdasdasdasd
+	public View(Player p) { //dasdasdasdadadadasdasdasdasdcsdcyxcyc
 		this.p=p;
 		f = new Frame();
 		f.setSize(500, 500);
