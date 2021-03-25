@@ -16,14 +16,13 @@ public class Controller implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubsadsadasda
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		// AHAHHAHAHAHHAHAHHAHA
 	}
 
 	@Override
