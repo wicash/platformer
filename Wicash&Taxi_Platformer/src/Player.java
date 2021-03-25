@@ -23,7 +23,7 @@ public class Player {
 		return new int[] {xPos,yPos};
 	}
 	
-	void move()						// Spieler bewegen
+	void move()						// Spieler bewegennnnnnn
 	{
 		if(sichtrichtung==0)
 			{xPos=xPos-1;}
