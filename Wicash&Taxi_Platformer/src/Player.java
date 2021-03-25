@@ -18,7 +18,7 @@ public class Player {
 		size=3;	
 	}
 	
-	int[] getPos()					// Position holen x,y und Z!!!!!!
+	int[] getPos()					// Position holen x,y und Z!!!!!!!!
 	{
 		return new int[] {xPos,yPos};
 	}
