@@ -9,20 +9,14 @@ public class Player {
 	int hp; //Leben
 	boolean inAir; 
 	int size;
+	int xSize;
+	int ySize;
 	Graphics g;
 	int movementSpeed=5;
 	
 	//HitBox:
-	int[] x0y0=new int[2];
-	int[] x1y0=new int[2];
-	int[] x2y0=new int[2];
-	int[] x0y1=new int[2];
-	int[] x1y1=new int[2];
-	int[] x2y1=new int[2];
-	int[] x0y2=new int[2];
-	int[] x1y2=new int[2];
-	int[] x2y2=new int[2];
-	int[][][] hitbox=new int[3][3][2];
+
+	int[][][] hitbox;
 	
 	
 	
@@ -34,38 +28,27 @@ public class Player {
 		hp=3;
 		inAir=false;
 		size=10;
+		xSize=size;
+		ySize=size;
+		hitbox=new int[xSize][xSize][2];
+		setHitbox();
 	}
 	
-	void fillHitbox()
+	void setHitbox()
 	{
-		hitbox[0][0]=x0y0;
-		hitbox[1][0]=x0y0;
-		hitbox[2][0]=x0y0;
-		hitbox[0][1]=x0y0;
-		hitbox[1][1]=x0y0;
-		hitbox[2][1]=x0y0;
-		hitbox[0][2]=x0y0;
-		hitbox[1][2]=x0y0;
-		hitbox[2][2]=x0y0;
-		
-		hitbox[0][0][0]=xPos-1;
-		hitbox[0][0][1]=yPos-1;
-		hitbox[1][0][0]=xPos;
-		hitbox[1][0][1]=yPos-1;
-		hitbox[2][0][0]=xPos+1;
-		hitbox[2][0][1]=yPos-1;
-		hitbox[0][1][0]=xPos-1;
-		hitbox[0][1][1]=yPos;
-		hitbox[1][1][0]=xPos;
-		hitbox[1][1][1]=yPos;
-		hitbox[2][1][0]=xPos+1;
-		hitbox[2][1][1]=yPos;
-		hitbox[0][2][0]=xPos-1;
-		hitbox[0][2][1]=yPos+1;
-		hitbox[1][2][0]=xPos;
-		hitbox[1][2][1]=yPos+1;
-		hitbox[2][2][0]=xPos+1;
-		hitbox[2][2][1]=yPos+1;
+
+		for(int y=0;y<ySize;y++)
+		{
+			for(int x=0;x<xSize;x++)
+			{
+				for(int z=0;z<2;z++)
+				{
+					if(z==0) hitbox[y][x][z]=xPos+x;
+					if(z==1)hitbox[y][x][z]=yPos+y;
+				}
+			}
+		}
+
 	}
 	
 	int[] getPos()					// Position holen x,y und Z!!!
@@ -93,18 +76,22 @@ public class Player {
 	void moveRight()					//Bewegen
 	{
 		xPos=xPos+movementSpeed;
+		this.setHitbox();
 	}
 	void moveLeft()
 	{
 		xPos=xPos-movementSpeed;
+		this.setHitbox();
 	}
 	void moveUp()
 	{
 		yPos=yPos-movementSpeed;
+		this.setHitbox();
 	}
 	void moveDown()
 	{
 		yPos=yPos+movementSpeed;
+		this.setHitbox();
 	}
 	
 	void clear()						//Spieler an Position optisch löschen
@@ -117,8 +104,46 @@ public class Player {
 		clear();
 		yPos=yPos+1;
 		draw();
+		this.setHitbox();
 	}
+	
+	void fall2()
+	{
+		yPos=yPos+1;
+		this.setHitbox();
+		
+		for(int x=0;x<xSize;x++)
+		{
+
+			for(int z=0;z<2;z++)
+			{
+
+//				if(z==0)System.out.print("xPos: "+ hitbox[ySize-1][x][z]);
+//				if(z==1)System.out.println("    yPos: "+ hitbox[ySize-1][x][z]);
+			}
+		}
+	}
+	
+	int[][] giveFoot()
+	{
+		int[][] foot=new int[xSize][2];
+
+		for(int x=0;x<xSize;x++)
+		{
+
+			for(int z=0;z<2;z++)
+			{
+
+				foot[x][z]=hitbox[ySize-1][x][z];
+			}
+		}
+		
+		return foot;
+	}
+	
+	
 
 
 }
+
 

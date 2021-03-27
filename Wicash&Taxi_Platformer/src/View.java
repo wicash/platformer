@@ -12,10 +12,12 @@ public class View extends JFrame implements WindowListener,KeyListener {
 
 	public Player p;
 	public Controller c;
+	public Map m;
 
-	public View(Player p,Controller c) {
+	public View(Player p,Controller c,Map m) {
 		this.p=p;						//Spieler übergeben
 		this.c=c;						//Controller übergeben
+		this.m=m;						
 		
 		setSize(500, 500);				// Fenster aufbauen
 		setBackground(Color.white);
@@ -23,7 +25,23 @@ public class View extends JFrame implements WindowListener,KeyListener {
 		addWindowListener(this);	
 		addKeyListener(this);			//Keylistener verbinden
 		
+		drawMap(getGraphics());
+		
 		p.setGraphics(getGraphics());	//Spieler Blatt übergeben
+		
+	}
+	
+	public void drawMap(Graphics g)
+	{
+		
+		for(int y=0;y<m.ySize;y++)
+		{
+			for(int x=0;x<m.xSize;x++)
+			{
+				
+				if(m.map[y][x]==1) {g.fillRect(x,y,2,2);}
+			}
+		}
 		
 	}
 	
