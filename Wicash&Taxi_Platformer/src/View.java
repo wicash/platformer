@@ -27,7 +27,10 @@ public class View extends JFrame implements WindowListener,KeyListener {
 		
 	}
 	
-
+	public void setGraphics()
+	{
+		p.setGraphics(getGraphics());
+	}
 	
 	public void paint (Graphics g) {    //Wichtig nicht löschen
 
@@ -86,7 +89,7 @@ public class View extends JFrame implements WindowListener,KeyListener {
 	{
 
 		
-		Graphics g = getGraphics();
+
 		if(e.getKeyCode() == KeyEvent.VK_W)
 		{
 			c.moveUp();
@@ -120,5 +123,9 @@ public class View extends JFrame implements WindowListener,KeyListener {
 		
 	}
 	
+	
+	
 	}
+
+
 
