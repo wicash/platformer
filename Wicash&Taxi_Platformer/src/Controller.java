@@ -1,34 +1,40 @@
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-
-public class Controller implements KeyListener{
+public class Controller {
 	public Player p;
-	public View v;
 	
-	public Controller(Player p, View v)
+	public Controller(Player p)
 	{
 		this.p=p;
-		this.v=v;
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-
-		// TODO Auto-generated method 
 	
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// AHAHHAHAHAHHAHAHHAHA
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int yolo;
 		
 	}
+	
+	public void moveRight()			//Bewegungen ausführen
+	{
+		p.clear();
+		p.moveRight();
+		p.draw();
+	}
+	public void moveLeft()
+	{
+		p.clear();
+		p.moveLeft();
+		p.draw();
+
+	}
+	public void moveUp()
+	{
+		p.clear();
+		p.moveUp();
+		p.draw();
+
+	}
+	public void moveDown()
+	{
+		p.clear();
+		p.moveDown();
+		p.draw();
+
+	}
+
+
 }
