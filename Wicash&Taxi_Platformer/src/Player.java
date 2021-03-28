@@ -12,8 +12,9 @@ public class Player {
 	int xSize;
 	int ySize;
 	Graphics g;
-	int movementSpeed=3;
+	int movementSpeed=2;
 	int jumpCounter=0;
+	int gravity=2;
 	
 	//HitBox:
 
@@ -78,23 +79,37 @@ public class Player {
 	
 	void moveRight()					//Bewegen
 	{
-		xPos=xPos+movementSpeed;
+		clear();
+		xPos=xPos+1;
 		this.setHitbox();
+		draw();
 	}
 	void moveLeft()
 	{
-		xPos=xPos-movementSpeed;
+		clear();
+		xPos=xPos-1;
 		this.setHitbox();
+		draw();
 	}
 	void moveUp()
 	{
-		yPos=yPos-movementSpeed;
+		clear();
+		yPos=yPos-1;
 		this.setHitbox();
+		draw();
 	}
 	void moveDown()
 	{
-		yPos=yPos+movementSpeed;
+		clear();
+		yPos=yPos+1;
 		this.setHitbox();
+		draw();
+		
+
+//		for(int mov=movementSpeed;mov>0;mov--)
+//		{
+//			if()yPos=yPos+1;
+//		}
 	}
 	
 	void clear()						//Spieler an Position optisch löschen
@@ -105,30 +120,29 @@ public class Player {
 	
 	void jump()
 	{
-		yPos=yPos-2;
-		if(jumpCounter>0) {jumpCounter=jumpCounter-1; }
+//		clear();
+//		yPos=yPos-2;
+//		if(jumpCounter>0) {jumpCounter=jumpCounter-1; }
+//		this.setHitbox();
+//		draw();
+		
+		clear();
+		yPos=yPos-1;
 		this.setHitbox();
+		draw();
+		
+		
 		
 	}
 	
 	void fall()
 	{
-
+		clear();
 		yPos=yPos+1;
 		this.setHitbox();
-
-		
-//		for(int x=0;x<xSize;x++)
-//		{
-//
-//			for(int z=0;z<2;z++)
-//			{
-//
-////				if(z==0)System.out.print("xPos: "+ hitbox[ySize-1][x][z]);
-////				if(z==1)System.out.println("    yPos: "+ hitbox[ySize-1][x][z]);
-//			}
-//		}
+		draw();
 	}
+	
 	
 	int[][] giveFoot()
 	{
@@ -207,4 +221,5 @@ public class Player {
 
 
 }
+
 

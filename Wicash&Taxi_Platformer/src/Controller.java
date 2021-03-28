@@ -1,77 +1,102 @@
-public class Controller {
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowListener;
+import java.util.Arrays;
+
+import javax.swing.JFrame;
+
+public class Controller extends JFrame implements KeyListener{
 	public Player p;
+	JFrame f;
 	Map m;
+	boolean[] pressedKeys=new boolean[5];		//Array zum überprüfen ob Tasten noch gedückt sind, 0=W ; 1=D ; 2=S ; 3=A ; 4=Space
+
 	
-	public Controller(Player p,Map m)
+	public Controller(Player p,Map m,JFrame f)
 	{
-		this.p=p;
-		this.m=m;
-	
+		this.p=p;								//Player
+		this.m=m;								//Map
+		this.f=f;								//Frame
+		f.addKeyListener(this);
+		Arrays.fill(pressedKeys, Boolean.FALSE);
 		
 	}
 	
 	public void moveRight()			//Bewegungen ausführen
 	{
+		for(int mov=p.movementSpeed;mov>0;mov--)
+		{
 		if(!wallRight(p.giveRightSide())) {
-			p.clear();
 			p.moveRight();
-			p.draw();
 			}
+		}
 	}
 	public void moveLeft()
 	{
+		for(int mov=p.movementSpeed;mov>0;mov--)
+		{
 		if(!wallLeft(p.giveLeftSide())) {
-			p.clear();
-			p.moveLeft();
-			p.draw();
+			
+				p.moveLeft();
+			}
 			}
 	}
 	public void moveUp()
 	{
-		if(!wallTop(p.giveHead())) {
-			p.clear();
+		for(int mov=p.movementSpeed;mov>0;mov--)
+		{
+		if(!wallTop(p.giveHead())&& wallBottom(p.giveFoot())) {
 			p.moveUp();
-			p.draw();
 			}
 	}
+	}
+		
 	public void moveDown()
 	{
+		for(int mov=p.movementSpeed;mov>0;mov--)
+		{
 		if(!wallBottom(p.giveFoot())) {
-			p.clear();
+			
 			p.moveDown();
-			p.draw();
 			}
+		}
 	}
 	
-	public void fall_jump()
+	public void doAction()
 	{
 		if(!wallBottom(p.giveFoot())&&p.jumpCounter==0) {
-			p.clear();
+			
+			for(int mov=p.gravity;mov>0;mov--)
+			{
 			p.fall();
-			p.draw();
+			
+			}
 		}
 		else if(p.jumpCounter>0)
 		{
-			p.clear();
+			for(int mov=p.jumpCounter;mov>0;mov--)
+			{
 			p.jump();
-			p.draw();
+//			p.jumpCounter=mov;
+			}
 		}
+		System.out.println(pressedKeys[1]);
+		if(pressedKeys[0]==true) moveUp();
+		if(pressedKeys[1]==true) moveRight();
+		if(pressedKeys[2]==true) moveDown();
+		if(pressedKeys[3]==true) moveLeft();
+		
+			
+			//0=W ; 1=D ; 2=S ; 3=A ; 4=Space
 
 	}
 	
 	boolean wallBottom(int[][] foot)
 	{
-		//System.out.println("adasd"+foot.length);
-		
 		for(int x=0;x<foot.length;x++)
 		{
 			
-				if(this.collisionBottom(foot[x])) return true;
-//				System.out.println("xPos: "+foot[x][0]);								//Koordinaten Foot und Map and Pos y+2
-//				System.out.println("yPos: "+foot[x][1]);		
-//				
-//				System.out.println("Map an x/y Pos"+ m.map[foot[x][1]+2][foot[x][0]]);
-				
+				if(this.collisionBottom(foot[x])) return true;		
 			
 		}
 		return false;
@@ -109,8 +134,6 @@ public class Controller {
 	boolean collisionBottom (int[] coordinates)
 	{
 		
-		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
-		
 		if(m.map[coordinates[1]+1][coordinates[0]]==1)
 			{ 
 			return true;}
@@ -120,7 +143,6 @@ public class Controller {
 	boolean collisionRight (int[] coordinates)
 	{
 		
-		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
 		if(m.map[coordinates[1]][coordinates[0]+p.movementSpeed]==1)
 			{ 
@@ -131,8 +153,6 @@ public class Controller {
 	boolean collisionLeft (int[] coordinates)
 	{
 		
-		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
-		
 		if(m.map[coordinates[1]][coordinates[0]-p.movementSpeed]==1)
 			{ 
 			return true;}
@@ -142,7 +162,6 @@ public class Controller {
 	boolean collisionTop (int[] coordinates)
 	{
 		
-		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
 		if(m.map[coordinates[1]-2][coordinates[0]]==1)
 			{ 
@@ -155,6 +174,86 @@ public class Controller {
 		p.setJumpCounter(j);
 	}
 	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed( KeyEvent e)				// Knopfdruck an Controller übermitteln 
+	{
+
+		
+
+		if(e.getKeyCode() == KeyEvent.VK_W)
+		{
+			pressedKeys[0]=true;
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_D)
+		{
+			pressedKeys[1]=true;
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_S)
+		{
+			pressedKeys[2]=true;
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_A)
+		{
+			pressedKeys[3]=true;
+		}
+		
+		
+		else if(e.getKeyCode() == KeyEvent.VK_SPACE && wallBottom(p.giveFoot()))
+		{
+			setJumpCounter(30);
+			pressedKeys[4]=true;
+
+			
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+
+		if(e.getKeyCode() == KeyEvent.VK_W)
+		{
+			pressedKeys[0]=false;
+			
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_D)
+		{
+			pressedKeys[1]=false;
+			
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_S)
+		{
+		  
+			pressedKeys[2]=false;
+			
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_A)
+		{
+			pressedKeys[3]=false;
+			
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			pressedKeys[4]=false;
+			
+		}
+		
+		
+	}
 
 
 

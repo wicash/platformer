@@ -5,29 +5,35 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Arrays;
+
 import javax.swing.JFrame;
 
 
-public class View extends JFrame implements WindowListener,KeyListener {
+public class View extends JFrame implements WindowListener{
 
 	public Player p;
 	public Controller c;
 	public Map m;
+	JFrame f;
+	boolean[] pressedKeys=new boolean[5];		//Array zum überprüfen ob Tasten noch gedückt sind, 0=W ; 1=D ; 2=S ; 3=A ; 4=Space
 
-	public View(Player p,Controller c,Map m) {
+	public View(Player p,Controller c,Map m,JFrame f) {
 		this.p=p;						//Spieler übergeben
 		this.c=c;						//Controller übergeben
-		this.m=m;						
+		this.m=m;
+		this.f=f;
+
 		
-		setSize(500, 500);				// Fenster aufbauen
-		setBackground(Color.white);
-		setVisible(true);
-		addWindowListener(this);	
-		addKeyListener(this);			//Keylistener verbinden
 		
-		drawMap(getGraphics());
+		f.setSize(500, 500);				// Fenster aufbauen
+		f.setBackground(Color.white);
+		f.setVisible(true);
+		f.addWindowListener(this);	
 		
-		p.setGraphics(getGraphics());	//Spieler Blatt übergeben
+		drawMap(f.getGraphics());
+		
+		p.setGraphics(f.getGraphics());	//Spieler Blatt übergeben
 		
 	}
 	
@@ -47,7 +53,7 @@ public class View extends JFrame implements WindowListener,KeyListener {
 	
 	public void setGraphics()
 	{
-		p.setGraphics(getGraphics());
+		p.setGraphics(f.getGraphics());
 	}
 	
 	public void paint (Graphics g) {    //Wichtig nicht löschen
@@ -96,62 +102,7 @@ public class View extends JFrame implements WindowListener,KeyListener {
 		
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed( KeyEvent e)				// Knopfdruck an Controller übermitteln 
-	{
-
-		
-
-		if(e.getKeyCode() == KeyEvent.VK_W)
-		{
-			c.moveUp();
-			
-		}
-		
-		else if(e.getKeyCode() == KeyEvent.VK_D)
-		{
-			c.moveRight();
-			
-		}
-		
-		else if(e.getKeyCode() == KeyEvent.VK_S)
-		{
-		  
-			c.moveDown();
-			
-		}
-		
-		else if(e.getKeyCode() == KeyEvent.VK_A)
-		{
-			c.moveLeft();
-			
-		}
-		
-		else if(e.getKeyCode() == KeyEvent.VK_D)
-		{
-			c.moveRight();
-			
-		}
-		
-		else if(e.getKeyCode() == KeyEvent.VK_SPACE && c.wallBottom(p.giveFoot()))
-		{
-			c.setJumpCounter(40);
-			
-		}
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	
 	
