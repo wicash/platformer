@@ -138,7 +138,7 @@ public class Controller {
 		
 		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
-		if(m.map[coordinates[1]-1][coordinates[0]]==1)
+		if(m.map[coordinates[1]-2][coordinates[0]]==1)
 			{ 
 			return true;}
 		return false;

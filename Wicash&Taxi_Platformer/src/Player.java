@@ -12,7 +12,7 @@ public class Player {
 	int xSize;
 	int ySize;
 	Graphics g;
-	int movementSpeed=1;
+	int movementSpeed=2;
 	
 	//HitBox:
 
@@ -151,7 +151,7 @@ public class Player {
 			for(int z=0;z<2;z++)
 			{
 
-				side[y][z]=hitbox[y][xSize][z];
+				side[y][z]=hitbox[y][xSize-1][z];
 			}
 		}
 		

@@ -39,7 +39,7 @@ public class View extends JFrame implements WindowListener,KeyListener {
 			for(int x=0;x<m.xSize;x++)
 			{
 				
-				if(m.map[y][x]==1) {g.fillRect(x,y,2,2);}
+				if(m.map[y][x]==1) {g.fillRect(x,y,1,1);}
 			}
 		}
 		
@@ -144,5 +144,4 @@ public class View extends JFrame implements WindowListener,KeyListener {
 	
 	
 	}
-
 

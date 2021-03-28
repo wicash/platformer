@@ -32,11 +32,11 @@ public class Map {
 		{
 			for(int x=xPos;x<xHigh+xPos;x++)
 			{
-				System.out.println("x: "+x+" y: "+y);
+//				System.out.println("x: "+x+" y: "+y);
 				if(y<ySize&&x<xSize)
 				{
 				map[y][x]=1;
-				System.out.println("Map auf eins: x:"+x+"Y: "+ y);
+//				System.out.println("Map auf eins: x:"+x+"Y: "+ y);
 				}
 				
 			}
