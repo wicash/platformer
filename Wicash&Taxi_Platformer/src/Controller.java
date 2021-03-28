@@ -55,23 +55,23 @@ public class Controller {
 		for(int x=0;x<foot.length;x++)
 		{
 			
-				if(this.collision(foot[x])) return true;
+				if(this.collisionBottom(foot[x])) return true;
 				System.out.println("xPos: "+foot[x][0]);
 				System.out.println("yPos: "+foot[x][1]);
 				
-				System.out.println("Map an x/y Pos"+ m.map[foot[x][0]][foot[x][1]]);
+				System.out.println("Map an x/y Pos"+ m.map[foot[x][1]][foot[x][0]]);
 				
 			
 		}
 		return false;
 	}
 	
-	boolean collision (int[] coordinates)
+	boolean collisionBottom (int[] coordinates)
 	{
 		
 		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
-		if(m.map[coordinates[0]][coordinates[1]]==1)
+		if(m.map[coordinates[1]+1][coordinates[0]]==1)
 			{ 
 			return true;}
 		return false;

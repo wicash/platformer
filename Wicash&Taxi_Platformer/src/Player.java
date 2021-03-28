@@ -30,7 +30,7 @@ public class Player {
 		size=10;
 		xSize=size;
 		ySize=size;
-		hitbox=new int[xSize][xSize][2];
+		hitbox=new int[ySize][xSize][2];
 		setHitbox();
 	}
 	
@@ -96,7 +96,7 @@ public class Player {
 	
 	void clear()						//Spieler an Position optisch löschen
 	{
-		g.clearRect(xPos,yPos,size+1,size+1);
+		g.clearRect(xPos,yPos,size,size);
 	}
 	
 	void fall()
@@ -145,5 +145,4 @@ public class Player {
 
 
 }
-
 

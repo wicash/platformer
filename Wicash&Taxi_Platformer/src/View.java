@@ -146,4 +146,3 @@ public class View extends JFrame implements WindowListener,KeyListener {
 	}
 
 
-
