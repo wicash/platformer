@@ -12,7 +12,8 @@ public class Player {
 	int xSize;
 	int ySize;
 	Graphics g;
-	int movementSpeed=2;
+	int movementSpeed=3;
+	int jumpCounter=0;
 	
 	//HitBox:
 
@@ -33,6 +34,8 @@ public class Player {
 		hitbox=new int[ySize][xSize][2];
 		setHitbox();
 	}
+	
+
 	
 	void setHitbox()
 	{
@@ -99,29 +102,32 @@ public class Player {
 		g.clearRect(xPos,yPos,size,size);
 	}
 	
-	void fall()
-	{
-		clear();
-		yPos=yPos+1;
-		draw();
-		this.setHitbox();
-	}
 	
-	void fall2()
+	void jump()
 	{
-		yPos=yPos+1;
+		yPos=yPos-2;
+		if(jumpCounter>0) {jumpCounter=jumpCounter-1; }
 		this.setHitbox();
 		
-		for(int x=0;x<xSize;x++)
-		{
+	}
+	
+	void fall()
+	{
 
-			for(int z=0;z<2;z++)
-			{
+		yPos=yPos+1;
+		this.setHitbox();
 
-//				if(z==0)System.out.print("xPos: "+ hitbox[ySize-1][x][z]);
-//				if(z==1)System.out.println("    yPos: "+ hitbox[ySize-1][x][z]);
-			}
-		}
+		
+//		for(int x=0;x<xSize;x++)
+//		{
+//
+//			for(int z=0;z<2;z++)
+//			{
+//
+////				if(z==0)System.out.print("xPos: "+ hitbox[ySize-1][x][z]);
+////				if(z==1)System.out.println("    yPos: "+ hitbox[ySize-1][x][z]);
+//			}
+//		}
 	}
 	
 	int[][] giveFoot()
@@ -190,6 +196,11 @@ public class Player {
 		}
 		
 		return head;
+	}
+	
+	void setJumpCounter(int j)
+	{
+		jumpCounter=j;
 	}
 	
 	

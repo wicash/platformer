@@ -43,12 +43,18 @@ public class Controller {
 			}
 	}
 	
-	public void fall()
+	public void fall_jump()
 	{
-		if(!wallBottom(p.giveFoot())) {
-		p.clear();
-		p.fall2();
-		p.draw();
+		if(!wallBottom(p.giveFoot())&&p.jumpCounter==0) {
+			p.clear();
+			p.fall();
+			p.draw();
+		}
+		else if(p.jumpCounter>0)
+		{
+			p.clear();
+			p.jump();
+			p.draw();
 		}
 
 	}
@@ -116,7 +122,7 @@ public class Controller {
 		
 		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
-		if(m.map[coordinates[1]][coordinates[0]+1]==1)
+		if(m.map[coordinates[1]][coordinates[0]+p.movementSpeed]==1)
 			{ 
 			return true;}
 		return false;
@@ -127,7 +133,7 @@ public class Controller {
 		
 		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
-		if(m.map[coordinates[1]][coordinates[0]-1]==1)
+		if(m.map[coordinates[1]][coordinates[0]-p.movementSpeed]==1)
 			{ 
 			return true;}
 		return false;
@@ -142,6 +148,11 @@ public class Controller {
 			{ 
 			return true;}
 		return false;
+	}
+	
+	void setJumpCounter(int j)
+	{
+		p.setJumpCounter(j);
 	}
 	
 

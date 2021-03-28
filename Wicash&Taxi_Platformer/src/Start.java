@@ -20,7 +20,7 @@ public class Start  {
 		current=System.currentTimeMillis();
 		if(current-start>diff)
 		{
-			c.fall();
+			c.fall_jump();
 			start=current;
 		}
 	}

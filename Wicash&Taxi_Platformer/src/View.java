@@ -114,6 +114,12 @@ public class View extends JFrame implements WindowListener,KeyListener {
 			
 		}
 		
+		else if(e.getKeyCode() == KeyEvent.VK_D)
+		{
+			c.moveRight();
+			
+		}
+		
 		else if(e.getKeyCode() == KeyEvent.VK_S)
 		{
 		  
@@ -133,6 +139,12 @@ public class View extends JFrame implements WindowListener,KeyListener {
 			
 		}
 		
+		else if(e.getKeyCode() == KeyEvent.VK_SPACE && c.wallBottom(p.giveFoot()))
+		{
+			c.setJumpCounter(40);
+			
+		}
+		
 	}
 
 	@Override
@@ -144,4 +156,5 @@ public class View extends JFrame implements WindowListener,KeyListener {
 	
 	
 	}
+
 
