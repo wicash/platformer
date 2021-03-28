@@ -16,7 +16,7 @@ public class Player {
 	int jumpCounter=0;
 	int gravity=2;
 	int sprunghöhe=50;
-	int verbleibendteSprunghöhe=sprunghöhe;
+	int verbleibendteSprunghoehe=sprunghoehe;
 	boolean doubleJump;
 	
 	//HitBox:

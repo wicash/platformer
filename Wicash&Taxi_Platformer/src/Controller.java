@@ -64,7 +64,7 @@ public class Controller extends JFrame implements KeyListener{
 	
 	public void doAction()
 	{
-		if(!wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendteSprunghöhe>0)) {
+		if(!wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendteSprunghoehe>0)) {
 			
 			for(int mov=p.gravity;mov>0;mov--)
 			{
@@ -75,7 +75,7 @@ public class Controller extends JFrame implements KeyListener{
 		
 		if(wallBottom(p.giveFoot()))
 		{
-			p.verbleibendteSprunghöhe=p.sprunghöhe;
+			p.verbleibendteSprunghoehe=p.sprunghoehe;
 			p.doubleJump=true;
 		}
 		
@@ -87,10 +87,10 @@ public class Controller extends JFrame implements KeyListener{
 			{
 			for(int mov=2;mov>0;mov--)
 			{
-			if(!wallTop(p.giveHead())&&p.verbleibendteSprunghöhe>0)
+			if(!wallTop(p.giveHead())&&p.verbleibendteSprunghoehe>0)
 				{
 				p.jump();
-				p.verbleibendteSprunghöhe--;
+				p.verbleibendteSprunghoehe--;
 				
 				}
 			}
@@ -258,7 +258,7 @@ public class Controller extends JFrame implements KeyListener{
 		{
 			if(p.doubleJump && !wallBottom(p.giveFoot() ))
 			{
-			p.verbleibendteSprunghöhe=p.sprunghöhe;
+			p.verbleibendteSprunghoehe=p.sprunghoehe;
 			p.doubleJump=false;
 			}
 			pressedKeys[4]=false;
