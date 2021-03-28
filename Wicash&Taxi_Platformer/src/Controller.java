@@ -12,35 +12,40 @@ public class Controller {
 	
 	public void moveRight()			//Bewegungen ausführen
 	{
-		p.clear();
-		p.moveRight();
-		p.draw();
+		if(!wallRight(p.giveRightSide())) {
+			p.clear();
+			p.moveRight();
+			p.draw();
+			}
 	}
 	public void moveLeft()
 	{
-		p.clear();
-		p.moveLeft();
-		p.draw();
-
+		if(!wallLeft(p.giveLeftSide())) {
+			p.clear();
+			p.moveLeft();
+			p.draw();
+			}
 	}
 	public void moveUp()
 	{
-		p.clear();
-		p.moveUp();
-		p.draw();
-
+		if(!wallTop(p.giveHead())) {
+			p.clear();
+			p.moveUp();
+			p.draw();
+			}
 	}
 	public void moveDown()
 	{
-		p.clear();
-		p.moveDown();
-		p.draw();
-
+		if(!wallBottom(p.giveFoot())) {
+			p.clear();
+			p.moveDown();
+			p.draw();
+			}
 	}
 	
 	public void fall()
 	{
-		if(!onGround(p.giveFoot())) {
+		if(!wallBottom(p.giveFoot())) {
 		p.clear();
 		p.fall2();
 		p.draw();
@@ -48,7 +53,7 @@ public class Controller {
 
 	}
 	
-	boolean onGround(int[][] foot)
+	boolean wallBottom(int[][] foot)
 	{
 		//System.out.println("adasd"+foot.length);
 		
@@ -56,15 +61,44 @@ public class Controller {
 		{
 			
 				if(this.collisionBottom(foot[x])) return true;
-				System.out.println("xPos: "+foot[x][0]);
-				System.out.println("yPos: "+foot[x][1]);
-				
-				System.out.println("Map an x/y Pos"+ m.map[foot[x][1]][foot[x][0]]);
+//				System.out.println("xPos: "+foot[x][0]);								//Koordinaten Foot und Map and Pos y+2
+//				System.out.println("yPos: "+foot[x][1]);		
+//				
+//				System.out.println("Map an x/y Pos"+ m.map[foot[x][1]+2][foot[x][0]]);
 				
 			
 		}
 		return false;
 	}
+	
+	boolean wallRight(int[][] side)
+	{
+		for(int x=0;x<side.length;x++)
+		{
+				if(this.collisionRight(side[x])) return true;					
+		}
+		return false;
+	}
+	
+	boolean wallLeft(int[][] side)
+	{
+		for(int x=0;x<side.length;x++)
+		{
+				if(this.collisionLeft(side[x])) return true;					
+		}
+		return false;
+	}
+	
+	boolean wallTop(int[][] head)
+	{
+		for(int x=0;x<head.length;x++)
+		{
+				if(this.collisionTop(head[x])) return true;					
+		}
+		return false;
+	}
+	
+	
 	
 	boolean collisionBottom (int[] coordinates)
 	{
@@ -72,6 +106,39 @@ public class Controller {
 		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
 		
 		if(m.map[coordinates[1]+1][coordinates[0]]==1)
+			{ 
+			return true;}
+		return false;
+	}
+	
+	boolean collisionRight (int[] coordinates)
+	{
+		
+		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
+		
+		if(m.map[coordinates[1]][coordinates[0]+1]==1)
+			{ 
+			return true;}
+		return false;
+	}
+	
+	boolean collisionLeft (int[] coordinates)
+	{
+		
+		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
+		
+		if(m.map[coordinates[1]][coordinates[0]-1]==1)
+			{ 
+			return true;}
+		return false;
+	}
+	
+	boolean collisionTop (int[] coordinates)
+	{
+		
+		//System.out.println("Player Koordinaten: X:"+ coordinates[0] + "Y:  "+ coordinates[1]);
+		
+		if(m.map[coordinates[1]-1][coordinates[0]]==1)
 			{ 
 			return true;}
 		return false;

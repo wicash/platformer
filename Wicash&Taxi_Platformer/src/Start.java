@@ -5,7 +5,8 @@ public class Start  {
 
 		Player p1    = new Player(50,50);			//Spieler erstellen								//View erstellen und Controller+Spieler übergeben
 		MapEditor m  = new MapEditor(500,500);
-		Map Map1=m.createMap1();
+		m.createMap1();
+		Map Map1=m.giveMap();
 		Controller c = new Controller(p1,Map1);			//Controller erstellen			
 		View v       = new View(p1,c,Map1);	
 		

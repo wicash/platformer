@@ -12,7 +12,7 @@ public class Player {
 	int xSize;
 	int ySize;
 	Graphics g;
-	int movementSpeed=5;
+	int movementSpeed=1;
 	
 	//HitBox:
 
@@ -139,6 +139,57 @@ public class Player {
 		}
 		
 		return foot;
+	}
+	
+	int[][] giveRightSide()
+	{
+		int[][] side=new int[ySize][2];
+
+		for(int y=0;y<ySize;y++)
+		{
+
+			for(int z=0;z<2;z++)
+			{
+
+				side[y][z]=hitbox[y][xSize][z];
+			}
+		}
+		
+		return side;
+	}
+	
+	int[][] giveLeftSide()
+	{
+		int[][] side=new int[ySize][2];
+
+		for(int y=0;y<ySize;y++)
+		{
+
+			for(int z=0;z<2;z++)
+			{
+
+				side[y][z]=hitbox[y][0][z];
+			}
+		}
+		
+		return side;
+	}
+	
+	int[][] giveHead()
+	{
+		int[][] head=new int[xSize][2];
+
+		for(int x=0;x<xSize;x++)
+		{
+
+			for(int z=0;z<2;z++)
+			{
+
+				head[x][z]=hitbox[0][x][z];
+			}
+		}
+		
+		return head;
 	}
 	
 	
