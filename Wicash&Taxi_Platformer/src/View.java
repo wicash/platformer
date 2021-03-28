@@ -27,7 +27,8 @@ public class View extends JFrame implements WindowListener{
 		
 		
 		f.setSize(500, 500);				// Fenster aufbauen
-		f.setBackground(Color.white);
+		f.setBackground(Color.yellow);
+		f.getContentPane().setBackground( Color.yellow );
 		f.setVisible(true);
 		f.addWindowListener(this);	
 		

@@ -64,7 +64,7 @@ public class Controller extends JFrame implements KeyListener{
 	
 	public void doAction()
 	{
-		if(!wallBottom(p.giveFoot())&&p.jumpCounter==0) {
+		if(!wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendteSprunghöhe>0)) {
 			
 			for(int mov=p.gravity;mov>0;mov--)
 			{
@@ -72,22 +72,29 @@ public class Controller extends JFrame implements KeyListener{
 			
 			}
 		}
-		else if(p.jumpCounter>0)
+		
+		if(wallBottom(p.giveFoot()))
 		{
-			for(int mov=p.jumpCounter;mov>0;mov--)
-			{
-			p.jump();
-//			p.jumpCounter=mov;
-			}
+			p.verbleibendteSprunghöhe=p.sprunghöhe;
+			p.doubleJump=true;
 		}
-		System.out.println(pressedKeys[1]);
+		
 		if(pressedKeys[0]==true) moveUp();
 		if(pressedKeys[1]==true) moveRight();
 		if(pressedKeys[2]==true) moveDown();
 		if(pressedKeys[3]==true) moveLeft();
-		
-			
-			//0=W ; 1=D ; 2=S ; 3=A ; 4=Space
+		if(pressedKeys[4]==true)
+			{
+			for(int mov=2;mov>0;mov--)
+			{
+			if(!wallTop(p.giveHead())&&p.verbleibendteSprunghöhe>0)
+				{
+				p.jump();
+				p.verbleibendteSprunghöhe--;
+				
+				}
+			}
+			}
 
 	}
 	
@@ -134,7 +141,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean collisionBottom (int[] coordinates)
 	{
 		
-		if(m.map[coordinates[1]+1][coordinates[0]]==1)
+		if(m.map[coordinates[1]+2][coordinates[0]]==1)
 			{ 
 			return true;}
 		return false;
@@ -168,6 +175,7 @@ public class Controller extends JFrame implements KeyListener{
 			return true;}
 		return false;
 	}
+	
 	
 	void setJumpCounter(int j)
 	{
@@ -206,9 +214,9 @@ public class Controller extends JFrame implements KeyListener{
 		}
 		
 		
-		else if(e.getKeyCode() == KeyEvent.VK_SPACE && wallBottom(p.giveFoot()))
+		else if(e.getKeyCode() == KeyEvent.VK_SPACE)
 		{
-			setJumpCounter(30);
+			
 			pressedKeys[4]=true;
 
 			
@@ -248,6 +256,11 @@ public class Controller extends JFrame implements KeyListener{
 		
 		else if(e.getKeyCode() == KeyEvent.VK_SPACE)
 		{
+			if(p.doubleJump && !wallBottom(p.giveFoot() ))
+			{
+			p.verbleibendteSprunghöhe=p.sprunghöhe;
+			p.doubleJump=false;
+			}
 			pressedKeys[4]=false;
 			
 		}

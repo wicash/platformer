@@ -15,6 +15,9 @@ public class Player {
 	int movementSpeed=2;
 	int jumpCounter=0;
 	int gravity=2;
+	int sprunghöhe=50;
+	int verbleibendteSprunghöhe=sprunghöhe;
+	boolean doubleJump;
 	
 	//HitBox:
 
@@ -34,6 +37,7 @@ public class Player {
 		ySize=size;
 		hitbox=new int[ySize][xSize][2];
 		setHitbox();
+		doubleJump = true;
 	}
 	
 
