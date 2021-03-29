@@ -15,12 +15,12 @@ public class Start  {
 		
 		long start=System.currentTimeMillis();
 		long current;
-		long diff=30;
+		long framerate=20;
 		
 	while(true)
 	{
 		current=System.currentTimeMillis();
-		if(current-start>diff)
+		if(current-start>framerate)
 		{
 			c.doAction();
 			start=current;
