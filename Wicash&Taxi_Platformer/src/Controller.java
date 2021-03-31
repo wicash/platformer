@@ -205,6 +205,7 @@ public class Controller extends JFrame implements KeyListener{
 	//Prüfbefehl, ob rechts von dem gegebenen Pixel Wand ist
 	boolean collisionRight (int[] coordinates)
 	{	
+		
 		if(m.map[coordinates[1]][coordinates[0]+1]==1)
 			{ 
 			return true;}
@@ -214,18 +215,24 @@ public class Controller extends JFrame implements KeyListener{
 	//Prüfbefehl, ob links von dem gegebenen Pixel Wand ist
 	boolean collisionLeft (int[] coordinates)
 	{
+		
+
+		if(coordinates[1]==0) {return false;}
 		if(m.map[coordinates[1]][coordinates[0]-1]==1)
 			{ 
 			return true;}
+		
 		return false;
 	}
 	
 	//Prüfbefehl, ob über dem gegebenen Pixel Decke ist
 	boolean collisionTop (int[] coordinates)
 	{
+		if(coordinates[1]==0) {return false;}
 		if(m.map[coordinates[1]-1][coordinates[0]]==1)
 			{ 
 			return true;}
+		
 		return false;
 	}
 	

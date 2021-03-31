@@ -219,6 +219,7 @@ public class Player {
 		
 		for(int y=0;y<ySize;y++)
 		{
+
 			for(int x=0;x<xSize;x++)
 			{
 				for(int z=0;z<2;z++)
@@ -241,7 +242,7 @@ public class Player {
 						}
 					}
 				}
-				p++;
+				
 			}
 		}
 		
@@ -250,49 +251,120 @@ public class Player {
 	
 	int[][] giveRightSide()
 	{
-		int[][] side=new int[ySize][2];
-
+		
+		int p =0;
+		int[][] side=new int[ySize*15][2];
+		for(int x=0;x<side.length;x++){Arrays.fill(side[x], 0);}
+		
+		
 		for(int y=0;y<ySize;y++)
 		{
 
-			for(int z=0;z<2;z++)
+			for(int x=0;x<xSize;x++)
 			{
-
-				side[y][z]=hitbox[y][xSize-1][z];
+				for(int z=0;z<2;z++)
+				{
+					if(hitbox[y][x][z]==0) {}
+					else
+					{
+						if(x+1<xSize)
+						{
+							if(hitbox[y][x+1][z]==0)
+							{
+								side[p][z]=hitbox[y][x][z];
+								//System.out.println(side[p][z]);
+								if(z==1)p++;
+							}
+						}
+						else
+						{
+							side[p][z]=hitbox[y][x][z];
+							//System.out.println(side[p][z]);
+							if(z==1)p++;
+						}
+					}
+				}
+				
 			}
 		}
+		
 		
 		return side;
 	}
 	
 	int[][] giveLeftSide()
 	{
-		int[][] side=new int[ySize][2];
-
+		int p =0;
+		int[][] side=new int[ySize*15][2];
+		for(int x=0;x<side.length;x++){Arrays.fill(side[x], 0);}
+		
+		
 		for(int y=0;y<ySize;y++)
 		{
 
-			for(int z=0;z<2;z++)
+			for(int x=0;x<xSize;x++)
 			{
-
-				side[y][z]=hitbox[y][0][z];
+				for(int z=0;z<2;z++)
+				{
+					if(hitbox[y][x][z]==0) {}
+					else
+					{
+						if(x>0)
+						{
+							if(hitbox[y][x-1][z]==0)
+							{
+								side[p][z]=hitbox[y][x][z];
+								if(z==1)p++;
+							}
+						}
+						else
+						{
+							side[p][z]=hitbox[y][x][z];
+							if(z==1)p++;
+						}
+					}
+				}
+				
 			}
 		}
+		
 		
 		return side;
 	}
 	
 	int[][] giveHead()
 	{
-		int[][] head=new int[xSize][2];
-
-		for(int x=0;x<xSize;x++)
+		int p =0;
+		int[][] head=new int[xSize*15][2];
+		for(int x=0;x<head.length;x++){Arrays.fill(head[x], 0);}
+		
+		
+		for(int y=0;y<ySize;y++)
 		{
 
-			for(int z=0;z<2;z++)
+			for(int x=0;x<xSize;x++)
 			{
-
-				head[x][z]=hitbox[0][x][z];
+				for(int z=0;z<2;z++)
+				{
+					if(hitbox[y][x][z]==0) {}
+					else
+					{
+						if(y>0)
+						{
+							if(hitbox[y-1][x][z]==0)
+							{
+								head[p][z]=hitbox[y][x][z];
+								if(z==1)p++;
+							}
+						}
+						else
+						{
+							head[p][z]=hitbox[y][x][z];
+							if(z==1)p++;
+						}
+					}
+				}
+				
 			}
 		}
 		
