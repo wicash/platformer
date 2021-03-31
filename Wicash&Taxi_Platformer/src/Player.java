@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Arrays;
 
 public class Player {
 	
@@ -18,6 +19,7 @@ public class Player {
 	int sprunghoehe=50;
 	int verbleibendeSprunghoehe=sprunghoehe;
 	boolean doubleJump;
+	int [][] playerModel;
 	
 	//HitBox:
 
@@ -32,15 +34,46 @@ public class Player {
 		sichtrichtung=1;
 		hp=3;
 		inAir=false;
-		size=10;
+		size=20;
 		xSize=size;
 		ySize=size;
 		hitbox=new int[ySize][xSize][2];
+		setPlayerModel();
 		setHitbox();
 		doubleJump = true;
 	}
 	
 
+	
+	Player(int x,int y, int[][] playerModel)
+	{
+		xPos=x;
+		yPos=y;
+		sichtrichtung=1;
+		hp=3;
+		inAir=false;
+		this.playerModel=playerModel;
+		xSize=playerModel.length;
+		ySize=playerModel[1].length;
+		hitbox=new int[ySize][xSize][2];
+		setHitbox();
+		doubleJump = true;
+	}
+	
+	void setPlayerModel()
+	{
+		int[][] m=new int[xSize][ySize];
+		
+		for(int y=0;y<ySize;y++)
+		{
+			for(int x=0;x<xSize;x++)
+			{
+				m[x][y]=1;
+				
+			}
+		}
+		this.playerModel=m;
+	}
 	
 	void setHitbox()
 	{
@@ -51,8 +84,10 @@ public class Player {
 			{
 				for(int z=0;z<2;z++)
 				{
-					if(z==0) hitbox[y][x][z]=xPos+x;
-					if(z==1)hitbox[y][x][z]=yPos+y;
+					if(playerModel[x][y]==1) {
+						if(z==0) hitbox[y][x][z]=xPos+x;
+						if(z==1)hitbox[y][x][z]=yPos+y;
+					}else hitbox[y][x][z]=0;
 				}
 			}
 		}
@@ -72,7 +107,22 @@ public class Player {
 	
 	void draw()							//Spieler zeichnen
 	{
-		g.fillRect(xPos,yPos,size,size);
+
+		
+		
+		for(int y=0;y<ySize;y++)
+		{
+			for(int x=0;x<xSize;x++)
+			{
+				
+					if(hitbox[y][x][1]!=0) {
+						g.fillRect(hitbox[y][x][0],hitbox[y][x][1],1,1);
+
+				}
+			}
+		}
+		
+
 	}
 	
 	void setGraphics(Graphics g)		//"Blatt" übergeben
@@ -118,7 +168,19 @@ public class Player {
 	
 	void clear()						//Spieler an Position optisch löschen
 	{
-		g.clearRect(xPos,yPos,size,size);
+		
+		for(int y=0;y<ySize;y++)
+		{
+			for(int x=0;x<xSize;x++)
+			{
+				
+					if(hitbox[y][x][1]!=0) {
+						g.clearRect(hitbox[y][x][0],hitbox[y][x][1],1,1);
+
+				}
+			}
+		}
+	
 	}
 	
 	
@@ -150,15 +212,36 @@ public class Player {
 	
 	int[][] giveFoot()
 	{
-		int[][] foot=new int[xSize][2];
-
-		for(int x=0;x<xSize;x++)
+		int p =0;
+		int[][] foot=new int[xSize*15][2];
+		for(int x=0;x<foot.length;x++){Arrays.fill(foot[x], 0);}
+		
+		
+		for(int y=0;y<ySize;y++)
 		{
-
-			for(int z=0;z<2;z++)
+			for(int x=0;x<xSize;x++)
 			{
-
-				foot[x][z]=hitbox[ySize-1][x][z];
+				for(int z=0;z<2;z++)
+				{
+					if(hitbox[y][x][z]==0) {}
+					else
+					{
+						if(y+1<ySize)
+						{
+							if(hitbox[y+1][x][z]==0)
+							{
+								foot[p][z]=hitbox[y][x][z];
+								if(z==1)p++;
+							}
+						}
+						else
+						{
+							foot[p][z]=hitbox[y][x][z];
+							if(z==1)p++;
+						}
+					}
+				}
+				p++;
 			}
 		}
 		
