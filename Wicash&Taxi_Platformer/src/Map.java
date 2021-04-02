@@ -1,3 +1,4 @@
+
 public class Map {
 	
 	int xSize;									// X-Weite Deklaration

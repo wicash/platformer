@@ -13,10 +13,10 @@ public class Player {
 	int xSize;
 	int ySize;
 	Graphics g;
-	int movementSpeed=2;
+	int movementSpeed=1;
 	int jumpCounter=0;
-	int gravity=2;
-	int sprunghoehe=50;
+	int gravity=1;
+	int sprunghoehe=80;
 	int verbleibendeSprunghoehe=sprunghoehe;
 	boolean doubleJump;
 	int [][] playerModel;
@@ -125,46 +125,147 @@ public class Player {
 
 	}
 	
+	void drawLeftMovement()							//Spieler zeichnen
+	{
+		int[][] left=this.giveLeftSide();
+				
+				for(int x=0;left[x][0]!=0;x++)
+				{
+					g.fillRect(left[x][0]-1, left[x][1], 1, 1);
+				}
+				
+		int[][] right=this.giveRightSide();
+				
+				for(int x=0;right[x][0]!=0;x++)
+				{
+					g.clearRect(right[x][0], right[x][1], 1, 1);
+				}
+		
+	}
+	
+	void drawRightMovement()							//Spieler zeichnen
+	{
+		int[][] right=this.giveRightSide();
+				
+				for(int x=0;right[x][0]!=0;x++)
+				{
+					g.fillRect(right[x][0]+1, right[x][1], 1, 1);
+				}
+				
+		int[][] left=this.giveLeftSide();
+				
+				for(int x=0;left[x][0]!=0;x++)
+				{ 
+					g.clearRect(left[x][0], left[x][1], 1, 1);
+				}
+		
+	}
+	
+	void drawUpMovement()							//Spieler zeichnen
+	{
+		int[][] head=this.giveHead();
+				
+				for(int x=0;head[x][0]!=0;x++)
+				{
+					g.fillRect(head[x][0], head[x][1]-1, 1, 1);
+				}
+				
+		int[][] foot=this.giveFoot();
+				
+				for(int x=0;foot[x][0]!=0;x++)
+				{
+					g.clearRect(foot[x][0], foot[x][1], 1, 1);
+				}
+		
+	}
+	
+	void drawDownMovement()							//Spieler zeichnen
+	{
+		int[][] foot=this.giveFoot();
+				
+				for(int x=0;foot[x][0]!=0;x++)
+				{
+					g.fillRect(foot[x][0], foot[x][1]+1, 1, 1);
+				}
+				
+		int[][] head=this.giveHead();
+				
+				for(int x=0;head[x][0]!=0;x++)
+				{
+					g.clearRect(head[x][0], head[x][1], 1, 1);
+				}
+		
+	}
+	
 	void setGraphics(Graphics g)		//"Blatt" übergeben
 	{
 		this.g=g;
 		g.setColor(Color.BLUE);
 	}
 	
-	void moveRight()					//Bewegen
-	{
-		clear();
-		xPos=xPos+1;
-		this.setHitbox();
-		draw();
-	}
+
 	void moveLeft()
 	{
-		clear();
+		drawLeftMovement();
 		xPos=xPos-1;
 		this.setHitbox();
-		draw();
+
 	}
-	void moveUp()
+	void moveRight()
 	{
-		clear();
-		yPos=yPos-1;
+		drawRightMovement();
+		xPos=xPos+1;
 		this.setHitbox();
-		draw();
+
 	}
 	void moveDown()
 	{
-		clear();
+		drawDownMovement();
 		yPos=yPos+1;
 		this.setHitbox();
-		draw();
+
+	}
+	void moveUp()
+	{
+		drawUpMovement();
+		yPos=yPos-1;
+		this.setHitbox();
+
+	}
+//	void moveRight()					//Bewegen
+//	{
+//		clear();
+//		xPos=xPos+1;
+//		this.setHitbox();
+//		draw();
+//	}
+//	void moveLeft()					//Bewegen
+//	{
+//		clear();
+//		xPos=xPos-1;
+//		this.setHitbox();
+//		draw();
+//	}
+//	void moveUp()
+//	{
+//		clear();
+//		yPos=yPos-1;
+//		this.setHitbox();
+//		draw();
+//	}
+//	void moveDown()
+//	{
+//		clear();
+//		yPos=yPos+1;
+//		this.setHitbox();
+//		draw();
 		
 
 //		for(int mov=movementSpeed;mov>0;mov--)
 //		{
 //			if()yPos=yPos+1;
 //		}
-	}
+	
 	
 	void clear()						//Spieler an Position optisch löschen
 	{
@@ -257,10 +358,10 @@ public class Player {
 		for(int x=0;x<side.length;x++){Arrays.fill(side[x], 0);}
 		
 		
-		for(int y=0;y<ySize;y++)
+		for(int x=xSize-1;x>=0;x--)
 		{
 
-			for(int x=0;x<xSize;x++)
+			for(int y=ySize-1;y>=0;y--)
 			{
 				for(int z=0;z<2;z++)
 				{
@@ -288,21 +389,20 @@ public class Player {
 			}
 		}
 		
-		
 		return side;
 	}
 	
-	int[][] giveLeftSide()
+	int[][] giveRightSideStartingTopRight()
 	{
 		int p =0;
 		int[][] side=new int[ySize*15][2];
 		for(int x=0;x<side.length;x++){Arrays.fill(side[x], 0);}
 		
 		
-		for(int y=0;y<ySize;y++)
+		for(int x=xSize-1;x>=0;x--)
 		{
 
-			for(int x=0;x<xSize;x++)
+			for(int y=0;y<ySize;y++)
 			{
 				for(int z=0;z<2;z++)
 				{
@@ -327,6 +427,84 @@ public class Player {
 				
 			}
 		}
+	
+	
+	return side;
+}
+	
+	int[][] giveLeftSide()
+	{
+		int p =0;
+		int[][] side=new int[ySize*15][2];
+		for(int x=0;x<side.length;x++){Arrays.fill(side[x], 0);}
+		
+		
+		for(int x=0;x<xSize;x++)
+		{
+
+			for(int y=ySize-1;y>=0;y--)
+			{
+				for(int z=0;z<2;z++)
+				{
+					if(hitbox[y][x][z]==0) {}
+					else
+					{
+						if(x>0)
+						{
+							if(hitbox[y][x-1][z]==0)
+							{
+								side[p][z]=hitbox[y][x][z];
+								if(z==1)p++;
+							}
+						}
+						else
+						{
+							side[p][z]=hitbox[y][x][z];
+							if(z==1)p++;
+						}
+					}
+				}
+				
+			}
+		}
+		return side;
+	}
+		
+		int[][] giveLeftSideStartingTopRight()
+		{
+			int p =0;
+			int[][] side=new int[ySize*15][2];
+			for(int x=0;x<side.length;x++){Arrays.fill(side[x], 0);}
+			
+			
+			for(int x=0;x<xSize;x++)
+			{
+
+				for(int y=0;y<ySize;y++)
+				{
+					for(int z=0;z<2;z++)
+					{
+						if(hitbox[y][x][z]==0) {}
+						else
+						{
+							if(x>0)
+							{
+								if(hitbox[y][x-1][z]==0)
+								{
+									side[p][z]=hitbox[y][x][z];
+									if(z==1)p++;
+								}
+							}
+							else
+							{
+								side[p][z]=hitbox[y][x][z];
+								if(z==1)p++;
+							}
+						}
+					}
+					
+				}
+			}
 		
 		
 		return side;

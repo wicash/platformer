@@ -41,12 +41,18 @@ public class Controller extends JFrame implements KeyListener{
 		if(!wallRight(p.giveRightSide())) {
 			p.moveRight();
 			}
+		else if(!oneTileToRightBottom(p.giveLeftSide()))
+		{
+			moveUp();
+			p.moveRight();
+		}
 		}
 	}
 	
 	//Bewegungsbefehl links
 	public void moveLeft()
 	{
+
 		// Pro Bewegungsbefehl nach oben, wir der Spieler um "movmentSpeed" Felder nach links verschoben, WENN...
 		for(int mov=p.movementSpeed;mov>0;mov--)
 		{
@@ -55,6 +61,11 @@ public class Controller extends JFrame implements KeyListener{
 			
 				p.moveLeft();
 			}
+		else if(!oneTileToLeftBottom(p.giveRightSide()))
+		{
+			moveUp();
+			p.moveLeft();
+		}
 			}
 	}
 	
@@ -65,7 +76,7 @@ public class Controller extends JFrame implements KeyListener{
 		for(int mov=p.movementSpeed;mov>0;mov--)
 		{
 		//	... keine Wand im Weg ist.
-		if(!wallTop(p.giveHead())&& wallBottom(p.giveFoot())) {
+		if(!wallTop(p.giveHead())) {
 			p.moveUp();
 			}
 	}
@@ -74,6 +85,7 @@ public class Controller extends JFrame implements KeyListener{
 	//Bewegungsbefehl runter
 	public void moveDown()
 	{
+		
 		// Pro Bewegungsbefehl nach unten, wir der Spieler um "movmentSpeed" Felder nach unten verschoben, WENN...
 		for(int mov=p.movementSpeed;mov>0;mov--)
 		{
@@ -84,6 +96,8 @@ public class Controller extends JFrame implements KeyListener{
 			p.moveDown();
 			}
 		}
+		
+			
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,12 +114,12 @@ public class Controller extends JFrame implements KeyListener{
 	{
 		// Prüfe ob der Spieler auf dem Boden steht und ob Leertaste gedrückt ist und noch sprungkraft vorhanden ist,
 		//           wenn nicht, fällt der spieler
-		if(!wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendeSprunghoehe>0)) {
+		if(!wallBottom(p.giveFoot())&&wallTop(p.giveHead())&&!pressedKeys[0]     ||!wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendeSprunghoehe>0)) {
 			
 			//Spieler fällt pro Tick um "gravity" Pixel(Array Elemente)
 			for(int mov=p.gravity;mov>0;mov--)
 			{
-				if(!wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendeSprunghoehe>0)) {
+				if( !(wallTop(p.giveHead())&&pressedKeys[0]) && !wallBottom(p.giveFoot())&& !(pressedKeys[4] && p.verbleibendeSprunghoehe>0 && !wallTop(p.giveHead()))) {
 			p.fall();
 				}
 			
@@ -119,9 +133,34 @@ public class Controller extends JFrame implements KeyListener{
 			p.doubleJump=true;
 		}
 		
-		//Prüfe ob Bewegungstasten (WASD) gedrückt sind, wenn ja führe Bewegung aus
+		//Prüfe ob Bewegungstasten (WASD) gedrückt sind, wenn ja führe Bewegung ausd
 		//		 0=W=Hoch ; 1=D=Rechts ; 2=S=Runter ; 3=A=Links ; 4=Space=Springen
-		if(pressedKeys[0]==true) moveUp();
+		if(pressedKeys[0]&&pressedKeys[1])
+		{
+			if(wallTop(p.giveHead())&&oneTileToRightTop(p.giveRightSide())&&wallRight(p.giveRightSide()))
+			{
+				moveDown();
+				moveRight();
+			}
+			else if(wallTop(p.giveHead())&&!wallRight(p.giveRightSide()))
+			{
+				moveRight();
+				p.jump();
+			}
+		}
+		if(pressedKeys[0]&&pressedKeys[3])
+		{
+			if(wallTop(p.giveHead())&&oneTileToLeftTop(p.giveLeftSide())&&wallLeft(p.giveLeftSide()))
+			{
+				moveDown();
+				moveLeft();
+			}
+			else if(wallTop(p.giveHead())&&!wallLeft(p.giveLeftSide()))
+			{
+				moveLeft();
+				p.jump();
+			}
+		}
 		if(pressedKeys[1]==true) moveRight();
 		if(pressedKeys[2]==true) moveDown();
 		if(pressedKeys[3]==true) moveLeft();
@@ -158,11 +197,33 @@ public class Controller extends JFrame implements KeyListener{
 		return false;
 	}
 	
+	
+	
 	// Prüfbefehl, ob rechts von der gegebenen Pixelreihe (der Seite) Wand ist
 	boolean wallRight(int[][] side)
 	{
 		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
 		for(int x=0;x<side.length;x++)
+		{
+				if(this.collisionRight(side[x])) return true;					
+		}
+		return false;
+	}
+	
+	boolean oneTileToRightBottom(int[][] side)
+	{
+		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
+		for(int x=1;x<side.length;x++)
+		{
+				if(this.collisionRight(side[x])) return true;					
+		}
+		return false;
+	}
+	
+	boolean oneTileToRightTop(int[][] side)
+	{
+		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
+		for(int x=1;x<side.length;x++)
 		{
 				if(this.collisionRight(side[x])) return true;					
 		}
@@ -176,6 +237,26 @@ public class Controller extends JFrame implements KeyListener{
 		for(int x=0;x<side.length;x++)
 		{
 				if(this.collisionLeft(side[x])) return true;					
+		}
+		return false;
+	}
+	
+	boolean oneTileToLeftBottom(int[][] side)
+	{
+		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
+		for(int x=1;x<side.length;x++)
+		{
+				if(this.collisionRight(side[x])) return true;					
+		}
+		return false;
+	}
+	
+	boolean oneTileToLeftTop(int[][] side)
+	{
+		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
+		for(int x=1;x<side.length;x++)
+		{
+				if(this.collisionRight(side[x])) return true;					
 		}
 		return false;
 	}
