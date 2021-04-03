@@ -10,7 +10,7 @@ public class Start  {
 
 		MapEditor m2  = new MapEditor();
 		BufferedImage image2 = ImageIO.read(new File("Player.bmp"));
-		Player p1    = new Player(50,50, m2.CreateModelFromBMP(image2));			//Spieler erstellen								//View erstellen und Controller+Spieler übergeben
+		Player p1    = new Player(100,50, m2.CreateModelFromBMP(image2));			//Spieler erstellen								//View erstellen und Controller+Spieler übergeben
 		MapEditor m  = new MapEditor();
 		JFrame f = new JFrame("Platformer");
 		BufferedImage image = ImageIO.read(new File("Map3.bmp"));
@@ -21,8 +21,8 @@ public class Start  {
 		
 		long start=System.currentTimeMillis();
 		long current;
-		long framerate=5;
-		
+		long framerate=1;
+	
 	
 		
 		

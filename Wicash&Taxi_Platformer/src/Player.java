@@ -16,10 +16,11 @@ public class Player {
 	int movementSpeed=1;
 	int jumpCounter=0;
 	int gravity=1;
-	int sprunghoehe=80;
+	int sprunghoehe=140;
 	int verbleibendeSprunghoehe=sprunghoehe;
 	boolean doubleJump;
 	int [][] playerModel;
+	Camera cam;
 	
 	//HitBox:
 
@@ -59,6 +60,12 @@ public class Player {
 		setHitbox();
 		doubleJump = true;
 	}
+	
+	void setCamera(Camera cam)
+	{
+		this.cam=cam;
+	}
+	
 	
 	void setPlayerModel()
 	{
@@ -206,30 +213,34 @@ public class Player {
 
 	void moveLeft()
 	{
-		drawLeftMovement();
+		//drawLeftMovement();
 		xPos=xPos-1;
 		this.setHitbox();
+		cam.drawMap();
 
 	}
 	void moveRight()
 	{
-		drawRightMovement();
+		//drawRightMovement();
 		xPos=xPos+1;
 		this.setHitbox();
+		cam.drawMap();
 
 	}
 	void moveDown()
 	{
-		drawDownMovement();
+		//drawDownMovement()
 		yPos=yPos+1;
 		this.setHitbox();
+		cam.drawMap();
 
 	}
 	void moveUp()
 	{
-		drawUpMovement();
+		//drawUpMovement();
 		yPos=yPos-1;
 		this.setHitbox();
+		cam.drawMap();
 
 	}
 //	void moveRight()					//Bewegen
@@ -293,10 +304,11 @@ public class Player {
 //		this.setHitbox();
 //		draw();
 		
-		clear();
+		//clear();
 		yPos=yPos-1;
 		this.setHitbox();
-		draw();
+		//draw();
+		cam.drawMap();
 		
 		
 		
@@ -304,10 +316,11 @@ public class Player {
 	
 	void fall()
 	{
-		clear();
+		//clear();
 		yPos=yPos+1;
 		this.setHitbox();
-		draw();
+		//draw();
+		cam.drawMap();
 	}
 	
 	

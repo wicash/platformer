@@ -2,7 +2,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 import java.util.Arrays;
-
 import javax.swing.JFrame;
 
 public class Controller extends JFrame implements KeyListener{

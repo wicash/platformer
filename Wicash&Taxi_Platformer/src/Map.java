@@ -12,7 +12,7 @@ public class Map {
 		this.map= new int[ySize][xSize];		// Map-Array Initialisierung
 		
 	
-		
+	
 		//Setze alle Elemente des Map-Arrays auf 0
 		for(int y=1;y<ySize;y++)
 		{
