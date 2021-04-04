@@ -18,10 +18,9 @@ public class Start  {
 		
 		Controller c = new Controller(p1,Map1,f);			//Controller erstellen			
 		View v       = new View(p1,c,Map1,f);	
-		
-		long start=System.currentTimeMillis();
-		long current;
-		long framerate=1;
+		double current;
+		double start=System.currentTimeMillis();
+		double framerate=1000/20;
 	
 	
 		
@@ -31,6 +30,13 @@ public class Start  {
 		current=System.currentTimeMillis();
 		if(current-start>framerate)
 		{
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+			System.out.println("NEUER TIK");
+			System.out.println("");
+			
+			System.out.println("Ein Tik in Millisekunden"+(current-start));
 //			System.out.println(current-start);
 			c.doAction();
 			start=current;

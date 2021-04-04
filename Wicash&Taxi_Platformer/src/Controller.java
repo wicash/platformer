@@ -51,7 +51,9 @@ public class Controller extends JFrame implements KeyListener{
 	//Bewegungsbefehl links
 	public void moveLeft()
 	{
-
+		double current;
+		double start=System.currentTimeMillis();
+		
 		// Pro Bewegungsbefehl nach oben, wir der Spieler um "movmentSpeed" Felder nach links verschoben, WENN...
 		for(int mov=p.movementSpeed;mov>0;mov--)
 		{
@@ -66,6 +68,8 @@ public class Controller extends JFrame implements KeyListener{
 			p.moveLeft();
 		}
 			}
+		current=System.currentTimeMillis();
+		System.out.println("Eine Bewegung Links im Kontroller Millisekunden"+(current-start));
 	}
 	
 	//Bewegungsbefehl hoch
@@ -202,7 +206,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean wallRight(int[][] side)
 	{
 		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=0;x<side.length;x++)
+		for(int x=0;x<side.length&& side[x][0]>0;x++)
 		{
 				if(this.collisionRight(side[x])) return true;					
 		}
@@ -212,7 +216,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean oneTileToRightBottom(int[][] side)
 	{
 		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=1;x<side.length;x++)
+		for(int x=1;x<side.length&& side[x][0]>0;x++)
 		{
 				if(this.collisionRight(side[x])) return true;					
 		}
@@ -222,7 +226,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean oneTileToRightTop(int[][] side)
 	{
 		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=1;x<side.length;x++)
+		for(int x=1;x<side.length&& side[x][0]>0;x++)
 		{
 				if(this.collisionRight(side[x])) return true;					
 		}
@@ -233,9 +237,10 @@ public class Controller extends JFrame implements KeyListener{
 	boolean wallLeft(int[][] side)
 	{
 		//Frage einzeln jeden Pixel des Fußes ab,ob unter ihm Boden ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=0;x<side.length;x++)
+		for(int x=0;x<side.length && side[x][0]>0;x++)
 		{
-				if(this.collisionLeft(side[x])) return true;					
+			
+				if(this.collisionLeft(side[x])) return true;	
 		}
 		return false;
 	}
@@ -243,7 +248,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean oneTileToLeftBottom(int[][] side)
 	{
 		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=1;x<side.length;x++)
+		for(int x=1;x<side.length&& side[x][0]>0;x++)
 		{
 				if(this.collisionRight(side[x])) return true;					
 		}
@@ -253,7 +258,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean oneTileToLeftTop(int[][] side)
 	{
 		//Frage einzeln jeden Pixel der Seite ab,ob rechts von ihm Wand ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=1;x<side.length;x++)
+		for(int x=1;x<side.length&& side[x][0]>0;x++)
 		{
 				if(this.collisionRight(side[x])) return true;					
 		}
@@ -264,7 +269,7 @@ public class Controller extends JFrame implements KeyListener{
 	boolean wallTop(int[][] head)
 	{
 		//Frage einzeln jeden Pixel des Kopfes ab,ob über ihm Decke ist, wenn einer gefunden wurde gib "true" zurück, sonst "false"
-		for(int x=0;x<head.length;x++)
+		for(int x=0;x<head.length&& head[x][0]>0;x++)
 		{
 				if(this.collisionTop(head[x])) return true;					
 		}

@@ -1,50 +1,3 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Arrays;
-
-public class Player {
-	
-	int xPos;
-	int yPos; 
-	int sichtrichtung; // 0=Links , 1=Rechts
-	int hp; //Leben
-	boolean inAir; 
-	int size;
-	int xSize;
-	int ySize;
-	Graphics g;
-	int movementSpeed=1;
-	int jumpCounter=0;
-	int gravity=1;
-	int sprunghoehe=140;
-	int verbleibendeSprunghoehe=sprunghoehe;
-	boolean doubleJump;
-	int [][] playerModel;
-	Camera cam;
-	
-	//HitBox:
-
-	int[][][] hitbox;
-	
-	
-	
-	Player(int x,int y)
-	{
-		xPos=x;
-		yPos=y;
-		sichtrichtung=1;
-		hp=3;
-		inAir=false;
-		size=20;
-		xSize=size;
-		ySize=size;
-		hitbox=new int[ySize][xSize][2];
-		setPlayerModel();
-		setHitbox();
-		doubleJump = true;
-	}
-	
-
 	
 	Player(int x,int y, int[][] playerModel)
 	{
@@ -213,10 +166,16 @@ public class Player {
 
 	void moveLeft()
 	{
+		double current;
+		double start=System.currentTimeMillis();
 		//drawLeftMovement();
 		xPos=xPos-1;
 		this.setHitbox();
-		cam.drawMap();
+		current=System.currentTimeMillis();
+		System.out.println("Eine Bewegung Links Millisekunden"+(current-start));
+		
+		cam.setMap();
+		
 
 	}
 	void moveRight()
@@ -224,15 +183,16 @@ public class Player {
 		//drawRightMovement();
 		xPos=xPos+1;
 		this.setHitbox();
-		cam.drawMap();
-
+		
+		cam.setMap();
+		System.out.println("Esdasdasd");
 	}
 	void moveDown()
 	{
 		//drawDownMovement()
 		yPos=yPos+1;
 		this.setHitbox();
-		cam.drawMap();
+		cam.setMap();
 
 	}
 	void moveUp()
@@ -240,7 +200,7 @@ public class Player {
 		//drawUpMovement();
 		yPos=yPos-1;
 		this.setHitbox();
-		cam.drawMap();
+		cam.setMap();
 
 	}
 //	void moveRight()					//Bewegen
@@ -308,7 +268,7 @@ public class Player {
 		yPos=yPos-1;
 		this.setHitbox();
 		//draw();
-		cam.drawMap();
+		cam.setMap();
 		
 		
 		
@@ -320,7 +280,7 @@ public class Player {
 		yPos=yPos+1;
 		this.setHitbox();
 		//draw();
-		cam.drawMap();
+		cam.setMap();
 	}
 	
 	

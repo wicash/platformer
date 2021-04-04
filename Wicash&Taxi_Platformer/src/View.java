@@ -1,13 +1,5 @@
-import java.awt.Color;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.Arrays;
-
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 
 public class View extends JFrame implements WindowListener{
@@ -17,6 +9,7 @@ public class View extends JFrame implements WindowListener{
 	public Map m;
 	Camera cam;
 	JFrame f;
+	JLabel map;
 	boolean[] pressedKeys=new boolean[5];	//Array zum überprüfen ob Tasten noch gedückt sind, 0=W ; 1=D ; 2=S ; 3=A ; 4=Space
 
 	public View(Player p,Controller c,Map m,JFrame f) {
@@ -27,7 +20,9 @@ public class View extends JFrame implements WindowListener{
 
 		
 		System.out.println(m.xSize+"sada"+ m.ySize);
-		f.setSize(300, 300);				// Fenster aufbauen
+		map=new JLabel();
+		f.add(map);
+		f.setSize(600, 600);				// Fenster aufbauen
 		f.setBackground(Color.white);
 		f.getContentPane().setBackground( Color.white );
 		f.setVisible(true);
@@ -36,10 +31,11 @@ public class View extends JFrame implements WindowListener{
 		
 		
 		//drawMap(f.getGraphics());
-		cam=new Camera(p,f,m);
+		cam=new Camera(p,f,m,map);
 		p.setCamera(cam);
 		cam.setGraphics(f.getGraphics());
-		cam.drawMap();
+		cam.setMap();
+
 		
 		p.setGraphics(f.getGraphics());	//Spieler Blatt übergeben
 		
