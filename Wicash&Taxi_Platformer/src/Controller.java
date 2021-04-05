@@ -51,8 +51,7 @@ public class Controller extends JFrame implements KeyListener{
 	//Bewegungsbefehl links
 	public void moveLeft()
 	{
-		double current;
-		double start=System.currentTimeMillis();
+
 		
 		// Pro Bewegungsbefehl nach oben, wir der Spieler um "movmentSpeed" Felder nach links verschoben, WENN...
 		for(int mov=p.movementSpeed;mov>0;mov--)
@@ -68,8 +67,7 @@ public class Controller extends JFrame implements KeyListener{
 			p.moveLeft();
 		}
 			}
-		current=System.currentTimeMillis();
-		System.out.println("Eine Bewegung Links im Kontroller Millisekunden"+(current-start));
+
 	}
 	
 	//Bewegungsbefehl hoch

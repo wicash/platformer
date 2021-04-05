@@ -18,9 +18,11 @@ public class Camera extends JFrame {
 	Graphics g;
 	Map m;
 	int[] rgbMap;
+	int [] rgbMap2;
 	Color white = new Color(255, 255, 255);
 	Color black = new Color(0, 0, 0);
 	Color blue = new Color(0, 0, 255);
+	Color yellow = new Color(255,255,0);
 	int counter;
 	JLabel j;
 	BufferedImage bufMap;
@@ -48,33 +50,82 @@ public class Camera extends JFrame {
 	{
 		counter=0;
 		long start=System.currentTimeMillis();
-		System.out.println(white.getRGB());
-			
+		
+
 //		for(int x=0;x<f.getHeight()*f.getWidth();x++)
 //		{
 //			rgbMap[x]=blue.getRGB();
 //		}
 		
 		
-			for(int y=0 ; y<f.getHeight() ; y++)
+			for(int y=0 ; y<f.getHeight(); y++)
 		{
-
-				for(int x=0 ; x<f.getWidth() ; x++)
+				
+				for(int x=0 ; x<f.getWidth(); x++)
 			{
 					
-					if(p.xPos-f.getWidth()/2+x>=0 && p.yPos-f.getHeight()/2+y>=0 && p.xPos-f.getWidth()/2+x<m.xSize && p.yPos-f.getHeight()/2+y<m.ySize)
+					
+					
+					
+					
+					if(y>=f.getHeight()/2  && x>=f.getWidth()/2 && y<f.getHeight()/2+p.ySize && x<f.getWidth()/2+p.xSize && p.playerModel[x-f.getWidth()/2][y-f.getHeight()/2]==1 )
+					  {
+							rgbMap[counter]=blue.getRGB();
+
+						
+					  }
+					else if(p.xPos-f.getWidth()/2+x<0 || p.yPos-f.getHeight()/2+y<0 )
+						{
+						
+						rgbMap[counter]=black.getRGB();
+						}
+					else if(p.xPos-f.getWidth()/2+x > m.map[1].length-1 || p.yPos-f.getHeight()/2+y > m.map.length-1)
+					{
+						
+						rgbMap[counter]=black.getRGB();
+					}
+					else if(p.xPos-f.getWidth()/2+x>=0 && p.yPos-f.getHeight()/2+y>=0)
 					{
 						if(m.map[p.yPos-f.getHeight()/2+y][p.xPos-f.getWidth()/2+x]>0)
-						{rgbMap[counter]=blue.getRGB();
-						System.out.print(" Hab Blau gemacht ");
+						{
+							rgbMap[counter]=black.getRGB();
 						}
-						else { 
-							rgbMap[counter]= 65535;
-							System.out.print(" Hab Weiﬂ gemacht ");
-									}
-					}
+						else if(m.map[p.yPos-f.getHeight()/2+y][p.xPos-f.getWidth()/2 +x]==0)
+						{
+							rgbMap[counter]=white.getRGB();
+						}
+					}counter++;
 					
-					else if(x>100)rgbMap[counter]=blue.getRGB();
+			}
+			}
+					
+					
+					
+					
+					
+//					
+//					
+////					System.out.println(" x:"+x+" y:"+y);
+//		
+//					if(y<=40&& y>=1) { rgbMap[counter]=16776960;
+//					System.out.print("y>100");
+//					}
+//					else if(x==20)
+//					{
+////						System.out.println(" y: "+y);
+//						rgbMap[counter]=16776960;
+////						
+//						if(true)
+//						{rgbMap[counter]=16776960;
+//						System.out.print(" Hab Blau gemacht ");
+//						}
+//						else { 
+//							rgbMap[counter]= 65535;
+//							System.out.print(" Hab Weiﬂ gemacht ");
+//									}
+			
+			
+//					counter++;
 //					
 //					
 				//System.out.println("aa");
@@ -128,37 +179,30 @@ public class Camera extends JFrame {
 //					}
 //				} 
 //			
-			counter++;
-			}System.out.println();
+			
 
-		}
-		
-			for(int x=0;x<f.getWidth()*f.getHeight();x++)
-			{
-				if(x%f.getWidth()==0) {
-				System.out.println();}
-				else System.out.print(" "+rgbMap[x]+" ");
-			}
+
+//		
+//			rgbMap2=rgbMap;
+//		
+//			for(int x=0;x<50*50;x++)
+//			{
+//				if(x%50==0) {
+//				System.out.println();}
+//				else System.out.print(" "+rgbMap2[x]+" ");
+//			}
 //			
 //			temp.setRGB(0,0,50,50, rgbMap, 0, 0);
 //			g.drawImage(temp,0,0,this);
 			
-			bufMap.setRGB(0,0,f.getWidth(),f.getHeight(), rgbMap, 0, 0);
+			bufMap.setRGB(0,0,f.getWidth(),f.getHeight(), rgbMap, 0, f.getWidth());
 
-//			 try {
-//				 if(bufMap == null)
-//				 System.out.println("kein Bild vorhanden");
-//				 else
-//				 ImageIO.write(bufMap,"jpeg",new File("test.jpg"));
-//				 }
-//				 catch (IOException ex) {
-//				 ex.printStackTrace();
-//				 }
-		
+
 		g.drawImage(bufMap,0,0,this);
 		//j.setIcon(new ImageIcon(bufMap));
 		long current=System.currentTimeMillis();
 		System.out.println("Laufzder drawMap Methode in Millisekunden:" + (current-start) );
-		System.out.println(rgbMap.length);
-	}
+
+	
+}
 }

@@ -20,7 +20,10 @@ public class Start  {
 		View v       = new View(p1,c,Map1,f);	
 		double current;
 		double start=System.currentTimeMillis();
-		double framerate=1000/20;
+		double framerate=20;
+		double current2;
+		double start2=System.currentTimeMillis();
+		double tikrate=4;
 	
 	
 		
@@ -28,19 +31,29 @@ public class Start  {
 	while(true)
 	{
 		current=System.currentTimeMillis();
+
 		if(current-start>framerate)
 		{
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("NEUER TIK");
-			System.out.println("");
-			
-			System.out.println("Ein Tik in Millisekunden"+(current-start));
-//			System.out.println(current-start);
-			c.doAction();
+			System.out.println("Framerate: "+(current-start));
 			start=current;
+			v.drawMap();
+		
+			
+//			System.out.println(current-start);
+			
+
+		
 		}
+		current2=System.currentTimeMillis();
+		if(current2-start2>tikrate)
+		{
+			System.out.println("Tikrate: "+(current2-start2));
+			start2=current2;
+			c.doAction();
+		}
+	
+
+		
 	}
 	}
 

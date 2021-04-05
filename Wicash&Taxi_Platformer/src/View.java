@@ -1,3 +1,12 @@
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.Arrays;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -39,6 +48,11 @@ public class View extends JFrame implements WindowListener{
 		
 		p.setGraphics(f.getGraphics());	//Spieler Blatt übergeben
 		
+	}
+	
+	public void drawMap()
+	{
+		cam.setMap();
 	}
 	
 	public void drawMap(Graphics g)
